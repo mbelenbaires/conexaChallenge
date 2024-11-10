@@ -3,7 +3,7 @@
   "builds": [
     {
       "src": "src/main/java/com/example/conexa_challenge/ConexaChallengeApplication.java",
-      "use": "@vercel/java"
+      "use": "@vercel/node"
     }
   ],
   "routes": [
