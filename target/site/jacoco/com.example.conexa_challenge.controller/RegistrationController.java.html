@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RegistrationController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">conexa-challenge</a> &gt; <a href="index.source.html" class="el_package">com.example.conexa_challenge.controller</a> &gt; <span class="el_source">RegistrationController.java</span></div><h1>RegistrationController.java</h1><pre class="source lang-java linenums">package com.example.conexa_challenge.controller;
+
+import com.example.conexa_challenge.dto.UserDto;
+import com.example.conexa_challenge.service.RegistrationService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
+
+<span class="fc" id="L18">@AllArgsConstructor</span>
+@RestController
+@RequestMapping(&quot;/registration&quot;)
+@Tag(name = &quot;Registro&quot;, description = &quot;Registro de nuevos usuarios&quot;)
+public class RegistrationController {
+    private final RegistrationService registrationService;
+
+    @PostMapping()
+    @PreAuthorize(&quot;hasRole('ADMIN')&quot;)
+    @Operation(summary = &quot;Permite registrar a un nuevo usuario determinando nombre y contraseña.&quot;)
+    public ResponseEntity&lt;String&gt; registerNewUser(
+            @RequestBody @Valid UserDto userDto) {
+<span class="fc" id="L30">        return new ResponseEntity&lt;&gt;(registrationService.registerNewUser(userDto), HttpStatus.CREATED);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

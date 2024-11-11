@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Film.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">conexa-challenge</a> &gt; <a href="index.source.html" class="el_package">com.example.conexa_challenge.entity</a> &gt; <span class="el_source">Film.java</span></div><h1>Film.java</h1><pre class="source lang-java linenums">package com.example.conexa_challenge.entity;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.time.LocalDate;
+import java.util.List;
+
+@Getter
+<span class="nc" id="L11">@Setter</span>
+<span class="fc" id="L12">public class Film extends AuditoryAndUrl {</span>
+<span class="nc" id="L13">    private String title;</span>
+
+    @JsonProperty(&quot;episode_id&quot;)
+<span class="nc" id="L16">    private Integer episodeId;</span>
+
+    @JsonProperty(&quot;opening_crawl&quot;)
+<span class="nc" id="L19">    private String openingCrawl;</span>
+
+<span class="nc" id="L21">    private String director;</span>
+<span class="nc" id="L22">    private String producer;</span>
+
+    @JsonProperty(&quot;release_date&quot;)
+<span class="nc" id="L25">    private LocalDate releaseDate;</span>
+
+<span class="nc" id="L27">    List&lt;String&gt; species;</span>
+<span class="nc" id="L28">    private List&lt;String&gt; starships;</span>
+<span class="nc" id="L29">    private List&lt;String&gt; vehicles;</span>
+<span class="nc" id="L30">    private List&lt;String&gt; characters;</span>
+<span class="nc" id="L31">    private List&lt;String&gt; planets;</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,8 +25,9 @@ public class VehicleController {
     private final VehicleService vehicleService;
 
     @GetMapping()
-    @Operation(summary = "Lista de vehículos", description = "Permite obtener de manera paginada los vehículos que forman parte de Star Wars, con su información correspondiente. " +
-            "Se puede ingresar el número de página que desea consultar, y configurar la cantidad de registros por página. En caso de no indicarlo, se devuelve por default la primer página, con 10 registros")
+    @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Obtiene vehículos en formato paginado", description = "Permite obtener de manera paginada los vehículos que forman parte de Star Wars, con su información correspondiente. " +
+            "Se puede ingresar el número de página que desea consultar, y configurar la cantidad de registros por página. En caso de no indicarlo, se devuelve por default la primer página, con 10 registros.")
     public ResponseEntity<GetPagesResponseDto<Vehicle>> getVehiclesByPage(
             @RequestParam(required = false, defaultValue = "1") Integer pageNumber,
             @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
@@ -34,6 +36,7 @@ public class VehicleController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Buscar un vehículo por id", description = "Permite buscar un vehículo particular con su información correspondiente, mediante su id numérico.")
     public ResponseEntity<GetByIdResponseWrapperDto<Vehicle>> getVehicleById(
             @PathVariable Integer id) {
@@ -42,6 +45,7 @@ public class VehicleController {
     }
 
     @GetMapping("/getByName")
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Buscar vehículos por nombre", description = "Permite obtener un listado de vehículos cuyo nombre incluya el valor buscado.")
     public ResponseEntity<GetByParamResponseWrapperDto<Vehicle>> getVehiclesByName(
             @RequestParam String name) {

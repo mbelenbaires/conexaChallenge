@@ -1,0 +1,46 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+conexa-challenge,com.example.conexa_challenge.controller,VehicleController,0,40,0,0,0,7,0,4,0,4
+conexa-challenge,com.example.conexa_challenge.controller,StarshipController,0,40,0,0,0,7,0,4,0,4
+conexa-challenge,com.example.conexa_challenge.controller,PeopleController,0,40,0,0,0,7,0,4,0,4
+conexa-challenge,com.example.conexa_challenge.controller,LoginController,0,5,0,0,0,2,0,2,0,2
+conexa-challenge,com.example.conexa_challenge.controller,FilmController,0,38,0,0,0,7,0,4,0,4
+conexa-challenge,com.example.conexa_challenge.controller,RegistrationController,0,15,0,0,0,2,0,2,0,2
+conexa-challenge,com.example.conexa_challenge.entity,Person,56,45,0,0,1,15,14,15,14,15
+conexa-challenge,com.example.conexa_challenge.entity,Film,77,3,0,0,12,1,22,1,22,1
+conexa-challenge,com.example.conexa_challenge.entity,AuditoryAndUrl,12,12,0,0,1,4,3,4,3,4
+conexa-challenge,com.example.conexa_challenge.entity,Planet,3,0,0,0,1,0,1,0,1,0
+conexa-challenge,com.example.conexa_challenge.entity,Transport,52,42,0,0,1,14,13,14,13,14
+conexa-challenge,com.example.conexa_challenge.entity,Vehicle,4,6,0,0,1,2,1,2,1,2
+conexa-challenge,com.example.conexa_challenge.entity,Starship,12,12,0,0,1,4,3,4,3,4
+conexa-challenge,com.example.conexa_challenge.entity,Species,87,0,0,0,14,0,25,0,25,0
+conexa-challenge,com.example.conexa_challenge.validator,MatchingPasswordsValidator,0,12,0,0,0,3,0,2,0,2
+conexa-challenge,com.example.conexa_challenge.service.impl,RegistrationServiceImpl,0,6,0,0,0,2,0,2,0,2
+conexa-challenge,com.example.conexa_challenge.service.impl,PeopleServiceImpl,0,109,0,2,0,15,0,5,0,4
+conexa-challenge,com.example.conexa_challenge.service.impl,FilmServiceImpl.new ParameterizedTypeReference() {...},0,6,0,0,0,1,0,1,0,1
+conexa-challenge,com.example.conexa_challenge.service.impl,FilmServiceImpl.new ParameterizedTypeReference() {...},0,6,0,0,0,1,0,1,0,1
+conexa-challenge,com.example.conexa_challenge.service.impl,VehicleServiceImpl.new ParameterizedTypeReference() {...},0,6,0,0,0,1,0,1,0,1
+conexa-challenge,com.example.conexa_challenge.service.impl,BuildRequestServiceImpl,0,161,0,0,0,37,0,5,0,5
+conexa-challenge,com.example.conexa_challenge.service.impl,VehicleServiceImpl,0,106,0,2,0,15,0,5,0,4
+conexa-challenge,com.example.conexa_challenge.service.impl,StarshipServiceImpl,0,106,0,2,0,15,0,5,0,4
+conexa-challenge,com.example.conexa_challenge.service.impl,VehicleServiceImpl.new ParameterizedTypeReference() {...},0,6,0,0,0,1,0,1,0,1
+conexa-challenge,com.example.conexa_challenge.service.impl,VehicleServiceImpl.new ParameterizedTypeReference() {...},0,6,0,0,0,1,0,1,0,1
+conexa-challenge,com.example.conexa_challenge.service.impl,FilmServiceImpl,0,125,0,2,0,21,0,5,0,4
+conexa-challenge,com.example.conexa_challenge.service.impl,StarshipServiceImpl.new ParameterizedTypeReference() {...},0,6,0,0,0,1,0,1,0,1
+conexa-challenge,com.example.conexa_challenge.service.impl,StarshipServiceImpl.new ParameterizedTypeReference() {...},0,6,0,0,0,1,0,1,0,1
+conexa-challenge,com.example.conexa_challenge.service.impl,StarshipServiceImpl.new ParameterizedTypeReference() {...},0,6,0,0,0,1,0,1,0,1
+conexa-challenge,com.example.conexa_challenge.service.impl,PeopleServiceImpl.new ParameterizedTypeReference() {...},0,6,0,0,0,1,0,1,0,1
+conexa-challenge,com.example.conexa_challenge.service.impl,PeopleServiceImpl.new ParameterizedTypeReference() {...},0,6,0,0,0,1,0,1,0,1
+conexa-challenge,com.example.conexa_challenge.service.impl,PeopleServiceImpl.new ParameterizedTypeReference() {...},0,6,0,0,0,1,0,1,0,1
+conexa-challenge,com.example.conexa_challenge,ConexaChallengeApplication,5,3,0,0,2,1,1,1,1,1
+conexa-challenge,com.example.conexa_challenge.config,SecurityConfig,0,107,0,0,0,29,0,4,0,4
+conexa-challenge,com.example.conexa_challenge.config,SwaggerConfig,0,17,0,0,0,3,0,2,0,2
+conexa-challenge,com.example.conexa_challenge.config,RestTemplateConfig,0,15,0,0,0,5,0,3,0,3
+conexa-challenge,com.example.conexa_challenge.dto,UserDto,3,21,0,0,1,4,1,6,1,6
+conexa-challenge,com.example.conexa_challenge.dto,LoginDto,17,0,0,0,4,0,5,0,5,0
+conexa-challenge,com.example.conexa_challenge.dto,BuildRequestDto,0,24,0,0,0,5,0,7,0,7
+conexa-challenge,com.example.conexa_challenge.dto,ResultDto,16,22,0,0,0,7,4,7,4,7
+conexa-challenge,com.example.conexa_challenge.dto,GetByIdResponseWrapperDto,8,15,0,0,1,3,2,3,2,3
+conexa-challenge,com.example.conexa_challenge.dto,GetByParamResponseWrapperDto,0,17,0,0,0,4,0,5,0,5
+conexa-challenge,com.example.conexa_challenge.dto,PropertiesDto,31,7,0,0,5,2,9,2,9,2
+conexa-challenge,com.example.conexa_challenge.dto,GetFilmsResponseWrapperDto,16,29,0,0,0,8,4,9,4,9
+conexa-challenge,com.example.conexa_challenge.dto,GetPagesResponseDto,16,29,0,0,0,8,4,9,4,9

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FilmServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">conexa-challenge</a> &gt; <a href="index.source.html" class="el_package">com.example.conexa_challenge.service.impl</a> &gt; <span class="el_source">FilmServiceImpl.java</span></div><h1>FilmServiceImpl.java</h1><pre class="source lang-java linenums">package com.example.conexa_challenge.service.impl;
+
+import com.example.conexa_challenge.dto.BuildRequestDto;
+import com.example.conexa_challenge.dto.GetByIdResponseWrapperDto;
+import com.example.conexa_challenge.dto.GetByParamResponseWrapperDto;
+import com.example.conexa_challenge.dto.GetFilmsResponseWrapperDto;
+import com.example.conexa_challenge.entity.Film;
+import com.example.conexa_challenge.service.BuildRequestService;
+import com.example.conexa_challenge.service.FilmService;
+import lombok.RequiredArgsConstructor;
+import lombok.var;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
+
+@Service
+<span class="fc" id="L25">@RequiredArgsConstructor</span>
+public class FilmServiceImpl implements FilmService {
+
+    private final BuildRequestService buildRequestService;
+
+    private final RestTemplate restTemplate;
+
+    @Value(&quot;${swapi.base.url}&quot;)
+    private String swapiBaseUrl;
+
+<span class="fc" id="L35">    private final String FILMS_URL = &quot;films&quot;;</span>
+
+    @Override
+    public GetFilmsResponseWrapperDto getFilms() {
+<span class="fc" id="L39">        var requestHeaders = new HttpHeaders();</span>
+<span class="fc" id="L40">        requestHeaders.setContentType(MediaType.APPLICATION_JSON);</span>
+<span class="fc" id="L41">        requestHeaders.set(&quot;User-Agent&quot;, &quot;ConexaChallenge/1.0&quot;);</span>
+<span class="fc" id="L42">        var requestEntity = new HttpEntity&lt;&gt;(requestHeaders);</span>
+
+<span class="fc" id="L44">        String url = swapiBaseUrl + FILMS_URL;</span>
+<span class="fc" id="L45">        String urlTemplate = UriComponentsBuilder.fromHttpUrl(url)</span>
+<span class="fc" id="L46">                .encode()</span>
+<span class="fc" id="L47">                .toUriString();</span>
+
+<span class="fc" id="L49">        return restTemplate.exchange(urlTemplate, HttpMethod.GET, requestEntity, GetFilmsResponseWrapperDto.class).getBody();</span>
+    }
+
+    @Override
+    public GetByIdResponseWrapperDto&lt;Film&gt; getFilmById(Integer id) {
+<span class="fc" id="L54">        BuildRequestDto request = buildRequestService.buildGetEntityByIdRequest(FILMS_URL);</span>
+        try {
+<span class="fc" id="L56">            return restTemplate.exchange(request.getUrl() + &quot;/{id}&quot;, HttpMethod.GET, request.getRequestEntity(), new ParameterizedTypeReference&lt;GetByIdResponseWrapperDto&lt;Film&gt;&gt;() {</span>
+<span class="fc" id="L57">            }, id).getBody();</span>
+<span class="fc" id="L58">        } catch (HttpClientErrorException e) {</span>
+<span class="fc bfc" id="L59" title="All 2 branches covered.">            if (e.getStatusCode() == HttpStatus.NOT_FOUND) {</span>
+<span class="fc" id="L60">                return new GetByIdResponseWrapperDto&lt;&gt;(&quot;La película no pudo ser encontrada&quot;, null);</span>
+            }
+<span class="fc" id="L62">            throw e;</span>
+        }
+
+    }
+
+    @Override
+    public GetByParamResponseWrapperDto&lt;Film&gt; getFilmsByTitle(String title) {
+<span class="fc" id="L69">        BuildRequestDto request = buildRequestService.buildGetEntityByParamRequest(FILMS_URL, &quot;title&quot;, title);</span>
+<span class="fc" id="L70">        return restTemplate.exchange(request.getUrl(), HttpMethod.GET, request.getRequestEntity(), new ParameterizedTypeReference&lt;GetByParamResponseWrapperDto&lt;Film&gt;&gt;() {</span>
+<span class="fc" id="L71">        }, request.getParams()).getBody();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

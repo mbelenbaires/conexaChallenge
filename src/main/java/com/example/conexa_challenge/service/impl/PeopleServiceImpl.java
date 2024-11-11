@@ -4,11 +4,14 @@ import com.example.conexa_challenge.dto.BuildRequestDto;
 import com.example.conexa_challenge.dto.GetByIdResponseWrapperDto;
 import com.example.conexa_challenge.dto.GetByParamResponseWrapperDto;
 import com.example.conexa_challenge.dto.GetPagesResponseDto;
+import com.example.conexa_challenge.entity.Film;
 import com.example.conexa_challenge.entity.Person;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import com.example.conexa_challenge.service.PeopleService;
 
@@ -33,8 +36,17 @@ public class PeopleServiceImpl implements PeopleService {
     @Override
     public GetByIdResponseWrapperDto<Person> getPersonById(Integer id) {
         BuildRequestDto request = buildRequestService.buildGetEntityByIdRequest(PEOPLE_URL);
-        return restTemplate.exchange(request.getUrl() + "/{id}", HttpMethod.GET, request.getRequestEntity(), new ParameterizedTypeReference<GetByIdResponseWrapperDto<Person>>() {
-        }, id).getBody();
+        try {
+            return restTemplate.exchange(request.getUrl() + "/{id}", HttpMethod.GET, request.getRequestEntity(), new ParameterizedTypeReference<GetByIdResponseWrapperDto<Person>>() {
+            }, id).getBody();
+        } catch (
+                HttpClientErrorException e) {
+            if (e.getStatusCode() == HttpStatus.NOT_FOUND) {
+                return new GetByIdResponseWrapperDto<>("La persona no pudo ser encontrada", null);
+            }
+            throw e;
+        }
+
     }
 
     @Override

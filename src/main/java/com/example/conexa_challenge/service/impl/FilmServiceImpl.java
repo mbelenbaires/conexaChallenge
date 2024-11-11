@@ -5,7 +5,6 @@ import com.example.conexa_challenge.dto.GetByIdResponseWrapperDto;
 import com.example.conexa_challenge.dto.GetByParamResponseWrapperDto;
 import com.example.conexa_challenge.dto.GetFilmsResponseWrapperDto;
 import com.example.conexa_challenge.entity.Film;
-import com.example.conexa_challenge.entity.Person;
 import com.example.conexa_challenge.service.BuildRequestService;
 import com.example.conexa_challenge.service.FilmService;
 import lombok.RequiredArgsConstructor;
@@ -15,8 +14,10 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -51,8 +52,16 @@ public class FilmServiceImpl implements FilmService {
     @Override
     public GetByIdResponseWrapperDto<Film> getFilmById(Integer id) {
         BuildRequestDto request = buildRequestService.buildGetEntityByIdRequest(FILMS_URL);
-        return restTemplate.exchange(request.getUrl() + "/{id}", HttpMethod.GET, request.getRequestEntity(), new ParameterizedTypeReference<GetByIdResponseWrapperDto<Film>>() {
-        }, id).getBody();
+        try {
+            return restTemplate.exchange(request.getUrl() + "/{id}", HttpMethod.GET, request.getRequestEntity(), new ParameterizedTypeReference<GetByIdResponseWrapperDto<Film>>() {
+            }, id).getBody();
+        } catch (HttpClientErrorException e) {
+            if (e.getStatusCode() == HttpStatus.NOT_FOUND) {
+                return new GetByIdResponseWrapperDto<>("La película no pudo ser encontrada", null);
+            }
+            throw e;
+        }
+
     }
 
     @Override

@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,7 @@ public class FilmController {
     private final FilmService filmService;
 
     @GetMapping()
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Lista de películas", description = "Permite obtener el listado completo de películas de Star Wars, con su información correspondiente.")
     public ResponseEntity<GetFilmsResponseWrapperDto> getFilms() {
         GetFilmsResponseWrapperDto response = filmService.getFilms();
@@ -31,6 +33,7 @@ public class FilmController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Buscar una película por id", description = "Permite buscar una película particular con su información correspondiente, mediante su id numérico.")
     public ResponseEntity<GetByIdResponseWrapperDto<Film>> getPersonById(
             @PathVariable Integer id) {
@@ -39,6 +42,7 @@ public class FilmController {
     }
 
     @GetMapping("/getByTitle")
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Buscar películas por título", description = "Permite obtener un listado de películas de Star Wars, cuyo título incluya el valor buscado.")
     public ResponseEntity<GetByParamResponseWrapperDto<Film>> getPeopleByName(
             @RequestParam String title) {

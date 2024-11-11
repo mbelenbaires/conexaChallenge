@@ -11,7 +11,9 @@ import com.example.conexa_challenge.service.VehicleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 @Service
@@ -34,8 +36,17 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     public GetByIdResponseWrapperDto<Vehicle> getVehicleById(Integer id) {
         BuildRequestDto request = buildRequestService.buildGetEntityByIdRequest(VEHICLES_URL);
-        return restTemplate.exchange(request.getUrl() + "/{id}", HttpMethod.GET, request.getRequestEntity(), new ParameterizedTypeReference<GetByIdResponseWrapperDto<Vehicle>>() {
-        }, id).getBody();
+        try {
+            return restTemplate.exchange(request.getUrl() + "/{id}", HttpMethod.GET, request.getRequestEntity(), new ParameterizedTypeReference<GetByIdResponseWrapperDto<Vehicle>>() {
+            }, id).getBody();
+        } catch (
+                HttpClientErrorException e) {
+            if (e.getStatusCode() == HttpStatus.NOT_FOUND) {
+                return new GetByIdResponseWrapperDto<>("El vehículo no pudo ser encontrado", null);
+            }
+            throw e;
+        }
+
     }
 
     @Override

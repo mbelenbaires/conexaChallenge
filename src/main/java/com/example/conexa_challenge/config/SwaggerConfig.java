@@ -10,6 +10,6 @@ public class SwaggerConfig {
     @Bean
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
-                .info(new Info().title("Conexa challenge").version("1.0").description("Challenge developed for Conexa."));
+                .info(new Info().title("Conexa challenge").version("1.0").description("Challenge desarrollado para Conexa."));
     }
 }

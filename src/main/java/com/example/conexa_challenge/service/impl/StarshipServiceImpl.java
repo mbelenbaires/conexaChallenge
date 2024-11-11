@@ -11,7 +11,9 @@ import com.example.conexa_challenge.service.StarshipService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 @Service
@@ -34,8 +36,17 @@ public class StarshipServiceImpl implements StarshipService {
     @Override
     public GetByIdResponseWrapperDto<Starship> getStarshipById(Integer id) {
         BuildRequestDto request = buildRequestService.buildGetEntityByIdRequest(STARSHIPS_URL);
-        return restTemplate.exchange(request.getUrl() + "/{id}", HttpMethod.GET, request.getRequestEntity(), new ParameterizedTypeReference<GetByIdResponseWrapperDto<Starship>>() {
-        }, id).getBody();
+        try {
+            return restTemplate.exchange(request.getUrl() + "/{id}", HttpMethod.GET, request.getRequestEntity(), new ParameterizedTypeReference<GetByIdResponseWrapperDto<Starship>>() {
+            }, id).getBody();
+        } catch (
+                HttpClientErrorException e) {
+            if (e.getStatusCode() == HttpStatus.NOT_FOUND) {
+                return new GetByIdResponseWrapperDto<>("La nave estelar no pudo ser encontrada", null);
+            }
+            throw e;
+        }
+
     }
 
     @Override
